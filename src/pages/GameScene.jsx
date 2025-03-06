@@ -6,7 +6,7 @@ import GameBoard from "../core/game/GameBoard";
 import { Debug } from "@react-three/cannon";
 import { OrbitControls } from "@react-three/drei";
 
-export default function GameScene({ balls }) {
+export default function GameScene() {
   return (
     <>
       {/* Cahaya */}
@@ -17,11 +17,9 @@ export default function GameScene({ balls }) {
       {/* Fisika */}
       <Physics>
         <Debug>
-          <GameBoard balls={balls} />
+          <GameBoard />
         </Debug>
       </Physics>
-
-      <OrbitControls />
     </>
   );
 }

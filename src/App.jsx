@@ -2,35 +2,32 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import GameScene from "./pages/GameScene";
-import { useState } from "react";
-import Ball from "./core/game/Ball";
+import useGameStore from "./core/state/useGameStore";
+import { OrbitControls } from "@react-three/drei";
 
 function App() {
-  const [balls, setBalls] = useState([]); // State untuk menyimpan bola
-
-  // Fungsi untuk menjatuhkan bola
-  const dropBall = () => {
-    setBalls([...balls, { id: Date.now(), position: [0, 3, 0] }]);
-  };
+  const addBall = useGameStore((state) => state.addBall);
 
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        background: "#111",
-        position: "relative",
-      }}
-    >
+    <div style={{ width: "100vw", height: "100vh", background: "#111" }}>
       <Canvas>
+        {/* Tambahkan OrbitControls di sini */}
+        <OrbitControls
+          // enableZoom={true}
+          minDistance={7}
+          maxDistance={80}
+          enableZoom={false}
+          minPolarAngle={Math.PI / 7}
+          maxPolarAngle={Math.PI / 2.5}
+          target={[0, 0, 0]}
+        />
         <Suspense fallback={null}>
-          <GameScene balls={balls} /> {/* Kirim data bola ke GameScene */}
+          <GameScene />
         </Suspense>
       </Canvas>
 
-      {/* Tombol Drop Ball */}
       <button
-        onClick={dropBall}
+        onClick={() => addBall([0, 3, 0])}
         style={{
           position: "absolute",
           top: "10px",
@@ -40,9 +37,6 @@ function App() {
           padding: "10px 20px",
           borderRadius: "5px",
           cursor: "pointer",
-          fontSize: "16px",
-          fontWeight: "bold",
-          zIndex: 10,
         }}
       >
         Drop Ball
