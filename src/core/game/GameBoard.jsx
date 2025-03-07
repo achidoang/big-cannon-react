@@ -5,10 +5,11 @@ import { CylinderGeometry } from "three";
 import { setupPhysics } from "../physics/PhysicsConfig";
 import useGameStore from "../state/useGameStore";
 import RotatingFloor from "./RotatingFloor";
+import HollowCylinder from "./HollowCylinder";
+import HollowCylinderTop from "./HollowCylinderTop";
 
 export default function GameBoard() {
   const balls = useGameStore((state) => state.balls);
-  const removeBall = useGameStore((state) => state.removeBall); // Tambahkan fungsi removeBall
 
   setupPhysics();
 
@@ -42,18 +43,20 @@ export default function GameBoard() {
       </mesh>
 
       <RotatingFloor />
-
-      {/* {balls.map((ball) => (
-        <Ball key={ball.id} position={ball.position} />
-      ))} */}
+      <HollowCylinder />
+      <HollowCylinderTop />
 
       {balls.map((ball) => (
+        <Ball key={ball.id} position={ball.position} />
+      ))}
+
+      {/* {balls.map((ball) => (
         <Ball
           key={ball.id}
           position={ball.position}
           onRemove={() => removeBall(ball.id)}
         />
-      ))}
+      ))} */}
     </>
   );
 }

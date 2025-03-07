@@ -1,3 +1,5 @@
+// src/core/game/RotatingFloor.jsx
+
 import { useFrame } from "@react-three/fiber";
 import { useTrimesh } from "@react-three/cannon";
 import * as THREE from "three";
@@ -11,11 +13,10 @@ export default function RotatingFloor() {
   const shape = new THREE.Shape();
   shape.absarc(0, 0, outerRadius, 0, Math.PI * 2, false); // Bentuk lingkaran luar
 
-  // Konfigurasi jumlah lubang per lingkaran (lebih dekat ke pusat)
+  // Konfigurasi jumlah lubang per lingkaran
   const holeConfigs = [
-    { count: 4, radius: 0.7 }, // Lingkaran pertama lebih dekat
-    { count: 6, radius: 1.7 }, // Lingkaran kedua lebih dekat
-    { count: 10, radius: 2.4 }, // Lingkaran ketiga lebih dekat
+    { count: 4, radius: 1.2 }, // Lingkaran pertama (4 lubang)
+    { count: 6, radius: 2.2 }, // Lingkaran kedua (6 lubang)
   ];
 
   // Menambahkan lubang-lubang ke dalam shape
@@ -40,7 +41,7 @@ export default function RotatingFloor() {
     const x = positionAttr.getX(i);
     const z = positionAttr.getZ(i);
     const distance = Math.sqrt(x * x + z * z);
-    const slopeEffect = -0.15 * (outerRadius - distance); // Semakin dekat lubang, semakin rendah
+    const slopeEffect = -0.12 * (outerRadius - distance); // Semakin dekat lubang, semakin rendah
     positionAttr.setY(i, slopeEffect);
   }
   positionAttr.needsUpdate = true;
@@ -52,7 +53,7 @@ export default function RotatingFloor() {
   // Membuat bentuk fisika dari geometri lantai
   const [ref, api] = useTrimesh(() => ({
     args: [vertices, indices], // Gunakan geometri berbentuk mesh
-    position: [0, -0.8, 0], // Posisi lantai
+    position: [0, -1.5, 0], // Posisi lantai
     type: "Kinematic",
     material: "floorMaterial",
   }));
@@ -81,7 +82,7 @@ export default function RotatingFloor() {
         color="green"
         roughness={0.8}
         side={THREE.DoubleSide}
-        displacementScale={0.1} // Efek tekstur kasar agar bola mengalir ke lubang
+        displacementScale={0.05} // Efek tekstur kasar agar bola mengalir ke lubang
       />
     </mesh>
   );
