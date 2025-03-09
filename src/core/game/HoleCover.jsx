@@ -23,7 +23,7 @@ export default function HoleCover({ index, radius, angle, floorRef }) {
         console.log(`Bola masuk ke lubang ${index}`);
         setTimeout(() => {
           closeHole(index);
-        }, 100); // Beri delay kecil 100ms sebelum menutup lubang
+        }, 350); // Beri delay kecil 100ms sebelum menutup lubang
         e.body.remove();
       }
     },
@@ -38,7 +38,7 @@ export default function HoleCover({ index, radius, angle, floorRef }) {
       const z = Math.sin(angle - rotationY) * radius;
 
       // Jika lubang tertutup, penutup naik ke permukaan. Jika tidak, turun ke bawah.
-      const yPosition = closedHoles[index] ? -1.7 : -3.6;
+      const yPosition = closedHoles[index] ? -1.7 : -2.25;
 
       console.log(
         `Lubang ${index} - Status: ${closedHoles[index]}, Posisi Y: ${yPosition}`
@@ -69,13 +69,13 @@ export default function HoleCover({ index, radius, angle, floorRef }) {
     <>
       {/* Mesh Visual (Penutup Lubang) */}
       <mesh ref={coverRef}>
-        <cylinderGeometry args={[0.45, 0.45, 0.3, 32]} />
+        <cylinderGeometry args={[0.4, 0.4, 0.1, 32]} />
         <meshStandardMaterial color="blue" />
       </mesh>
 
       {/* Mesh Fisik (Tak Terlihat, Hanya untuk Physics) */}
       <mesh ref={physicsRef} visible={false}>
-        <cylinderGeometry args={[0.45, 0.45, 0.3, 32]} />
+        <cylinderGeometry args={[0.64, 0.64, 0.4, 32]} />
       </mesh>
     </>
   );

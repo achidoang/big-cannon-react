@@ -49,14 +49,6 @@ export default function GameBoard() {
       {balls.map((ball) => (
         <Ball key={ball.id} position={ball.position} />
       ))}
-
-      {/* {balls.map((ball) => (
-        <Ball
-          key={ball.id}
-          position={ball.position}
-          onRemove={() => removeBall(ball.id)}
-        />
-      ))} */}
     </>
   );
 }

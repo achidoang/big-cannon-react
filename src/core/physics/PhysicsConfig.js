@@ -3,8 +3,8 @@ import { useContactMaterial } from "@react-three/cannon";
 
 export const setupPhysics = () => {
   useContactMaterial("ballMaterial", "groundMaterial", {
-    restitution: 0.1,
-    friction: 0.2,
+    restitution: 0,
+    friction: 0.02,
   });
 
   useContactMaterial("ballMaterial", "wallMaterial", {

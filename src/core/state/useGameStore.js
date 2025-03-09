@@ -33,6 +33,11 @@ const useGameStore = create((set) => ({
       };
     }),
 
+  removeBall: (ballId) =>
+    set((state) => ({
+      balls: state.balls.filter((ball) => ball.id !== ballId),
+    })),
+
   // Tutup lubang jika bola masuk
   closeHole: (holeIndex) =>
     set((state) => {
