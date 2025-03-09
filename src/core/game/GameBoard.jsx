@@ -43,7 +43,7 @@ export default function GameBoard() {
       </mesh>
 
       <RotatingFloor />
-      <HollowCylinder />
+      {/* <HollowCylinder /> */}
       <HollowCylinderTop />
 
       {balls.map((ball) => (

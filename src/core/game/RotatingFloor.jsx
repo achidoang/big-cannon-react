@@ -1,70 +1,67 @@
 // src/core/game/RotatingFloor.jsx
-
 import { useFrame } from "@react-three/fiber";
 import { useTrimesh } from "@react-three/cannon";
 import * as THREE from "three";
+import { useRef } from "react";
+import HoleCover from "./HoleCover";
 
 export default function RotatingFloor() {
-  // Ukuran utama
   const outerRadius = 3;
-  const holeRadius = 0.3; // Ukuran lubang kecil
+  const holeRadius = 0.3;
 
-  // Membuat bentuk utama (cincin luar)
   const shape = new THREE.Shape();
-  shape.absarc(0, 0, outerRadius, 0, Math.PI * 2, false); // Bentuk lingkaran luar
+  shape.absarc(0, 0, outerRadius, 0, Math.PI * 2, false);
 
-  // Konfigurasi jumlah lubang per lingkaran
   const holeConfigs = [
-    { count: 4, radius: 1.2 }, // Lingkaran pertama (4 lubang)
-    { count: 6, radius: 2.2 }, // Lingkaran kedua (6 lubang)
+    { count: 4, radius: 1.1 },
+    { count: 6, radius: 2.4 },
   ];
 
-  // Menambahkan lubang-lubang ke dalam shape
+  const holePositions = [];
+
   holeConfigs.forEach(({ count, radius }) => {
     for (let i = 0; i < count; i++) {
-      const angle = (i / count) * Math.PI * 2; // Posisi setiap lubang dalam lingkaran
+      const angle = (i / count) * Math.PI * 2;
       const x = Math.cos(angle) * radius;
       const y = Math.sin(angle) * radius;
+
       const hole = new THREE.Path();
-      hole.absarc(x, y, holeRadius, 0, Math.PI * 2, true); // Buat lingkaran sebagai lubang
+      hole.absarc(x, y, holeRadius, 0, Math.PI * 2, true);
       shape.holes.push(hole);
+
+      holePositions.push({ x, y, angle, radius });
     }
   });
 
-  // Konversi ke bentuk geometri
   const floorGeometry = new THREE.ShapeGeometry(shape);
-  floorGeometry.rotateX(-Math.PI / 2); // Rotasi agar horizontal
+  floorGeometry.rotateX(-Math.PI / 2);
 
-  // Menambahkan kemiringan menuju lubang dengan memodifikasi posisi vertex
   const positionAttr = floorGeometry.attributes.position;
   for (let i = 0; i < positionAttr.count; i++) {
     const x = positionAttr.getX(i);
     const z = positionAttr.getZ(i);
     const distance = Math.sqrt(x * x + z * z);
-    const slopeEffect = -0.12 * (outerRadius - distance); // Semakin dekat lubang, semakin rendah
+    const slopeEffect = -0.12 * (outerRadius - distance);
     positionAttr.setY(i, slopeEffect);
   }
   positionAttr.needsUpdate = true;
 
-  // Konversi ke bentuk physics
   const vertices = floorGeometry.attributes.position.array;
-  const indices = floorGeometry.index?.array || []; // Mencegah error jika index null
+  const indices = floorGeometry.index?.array || [];
 
-  // Membuat bentuk fisika dari geometri lantai
+  const floorRef = useRef();
   const [ref, api] = useTrimesh(() => ({
-    args: [vertices, indices], // Gunakan geometri berbentuk mesh
-    position: [0, -1.5, 0], // Posisi lantai
+    args: [vertices, indices],
+    position: [0, -1.5, 0],
     type: "Kinematic",
     material: "floorMaterial",
   }));
 
-  // Animasi rotasi lantai
   useFrame(() => {
     if (ref.current) {
-      const rotationY = ref.current.rotation.y + 0.01;
+      const rotationY = ref.current.rotation.y + 0.015;
       ref.current.rotation.y = rotationY;
 
-      // Update rotasi dalam fisika
       const quaternion = new THREE.Quaternion();
       quaternion.setFromEuler(new THREE.Euler(0, rotationY, 0));
       api.quaternion.set(
@@ -77,13 +74,25 @@ export default function RotatingFloor() {
   });
 
   return (
-    <mesh ref={ref} geometry={floorGeometry}>
-      <meshStandardMaterial
-        color="green"
-        roughness={0.8}
-        side={THREE.DoubleSide}
-        displacementScale={0.05} // Efek tekstur kasar agar bola mengalir ke lubang
-      />
-    </mesh>
+    <>
+      <mesh ref={ref} geometry={floorGeometry}>
+        <meshStandardMaterial
+          color="green"
+          roughness={0.8}
+          side={THREE.DoubleSide}
+          displacementScale={0.05}
+        />
+      </mesh>
+
+      {holePositions.map((pos, index) => (
+        <HoleCover
+          key={index}
+          index={index}
+          radius={pos.radius}
+          angle={pos.angle}
+          floorRef={ref}
+        />
+      ))}
+    </>
   );
 }

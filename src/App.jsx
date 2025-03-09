@@ -13,12 +13,12 @@ function App() {
       <Canvas>
         {/* Tambahkan OrbitControls di sini */}
         <OrbitControls
-          // enableZoom={true}
-          minDistance={7}
+          enableZoom={true}
+          // minDistance={7}
           maxDistance={80}
-          enableZoom={false}
-          minPolarAngle={Math.PI / 7}
-          maxPolarAngle={Math.PI / 2.5}
+          // enableZoom={false}
+          // minPolarAngle={Math.PI / 7}
+          // maxPolarAngle={Math.PI / 2.5}
           target={[0, 0, 0]}
         />
         <Suspense fallback={null}>
