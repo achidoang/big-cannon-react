@@ -10,72 +10,62 @@ export default function HoleCover({ index, radius, angle, floorRef }) {
   const closeHole = useGameStore((state) => state.closeHole);
   const balls = useGameStore((state) => state.balls);
 
-  // Bentuk fisik dari penutup lubang
+  // Physics body for the hole cover (invisible but functional)
   const [physicsRef, physicsApi] = useCylinder(() => ({
-    args: [0.3, 0.3, 0.05, 32],
+    args: [0.5, 0.5, 0.35, 32],
     position: [0, -1.7, 0],
     type: "Static",
     material: "floorMaterial",
-    onCollide: (e) => {
-      console.log("Collision detected with:", e.body?.userData?.type);
-
-      if (e.body?.userData?.type === "ball") {
-        console.log(`Bola masuk ke lubang ${index}`);
-        setTimeout(() => {
-          closeHole(index);
-        }, 350); // Beri delay kecil 100ms sebelum menutup lubang
-        e.body.remove();
-      }
-    },
+    onCollide: (e) => handleBallCollision(e),
   }));
 
-  useFrame(() => {
-    if (coverRef.current && floorRef.current) {
-      const rotationY = floorRef.current.rotation.y;
-
-      // Hitung posisi berdasarkan rotasi lantai
-      const x = Math.cos(angle - rotationY) * radius;
-      const z = Math.sin(angle - rotationY) * radius;
-
-      // Jika lubang tertutup, penutup naik ke permukaan. Jika tidak, turun ke bawah.
-      const yPosition = closedHoles[index] ? -1.7 : -2.25;
-
-      console.log(
-        `Lubang ${index} - Status: ${closedHoles[index]}, Posisi Y: ${yPosition}`
-      );
-
-      // Update posisi mesh visual
-      coverRef.current.position.set(x, yPosition, z);
-
-      // DETEKSI JIKA ADA BOLA DEKAT LUBANG
-      balls.forEach((ball) => {
-        const ballPos = ball.position;
-        const distance = Math.sqrt(
-          (ballPos[0] - x) ** 2 + (ballPos[2] - z) ** 2
-        );
-
-        if (distance < 0.2 && !closedHoles[index]) {
-          console.log(`Bola masuk ke lubang ${index} berdasarkan jarak`);
-          closeHole(index);
-        }
-      });
-
-      // Update posisi physics
-      physicsApi.position.set(x, yPosition, z);
+  // Handles ball collision with the hole
+  const handleBallCollision = (e) => {
+    if (e.body?.userData?.type === "ball") {
+      console.log(`Ball entered hole ${index}`);
+      setTimeout(() => closeHole(index), 500); // Small delay before closing the hole
+      e.body.remove();
     }
+  };
+
+  useFrame(() => {
+    if (!coverRef.current || !floorRef.current) return;
+
+    const rotationY = floorRef.current.rotation.y;
+    const x = Math.cos(angle - rotationY) * radius;
+    const z = Math.sin(angle - rotationY) * radius;
+    const yPosition = closedHoles[index] ? -1.7 : -2.15;
+
+    coverRef.current.position.set(x, yPosition, z);
+    physicsApi.position.set(x, yPosition, z);
+
+    // Detect if a ball is near an open hole
+    balls.forEach((ball) => {
+      const [ballX, , ballZ] = ball.position;
+      const distance = Math.hypot(ballX - x, ballZ - z);
+
+      if (distance < 0.2 && !closedHoles[index]) {
+        console.log(`Ball entered hole ${index} based on proximity`);
+        closeHole(index);
+      }
+    });
   });
 
   return (
     <>
-      {/* Mesh Visual (Penutup Lubang) */}
+      {/* Visual representation of the hole cover */}
       <mesh ref={coverRef}>
-        <cylinderGeometry args={[0.4, 0.4, 0.1, 32]} />
-        <meshStandardMaterial color="blue" />
+        <cylinderGeometry args={[0.37, 0.3, 0.35, 32]} />
+        <meshStandardMaterial
+          color="blue"
+          transparent={!closedHoles[index]}
+          opacity={closedHoles[index] ? 1 : 0.5}
+        />
       </mesh>
 
-      {/* Mesh Fisik (Tak Terlihat, Hanya untuk Physics) */}
+      {/* Invisible physics mesh */}
       <mesh ref={physicsRef} visible={false}>
-        <cylinderGeometry args={[0.64, 0.64, 0.4, 32]} />
+        <cylinderGeometry args={[0.5, 0.5, 0.35, 32]} />
       </mesh>
     </>
   );
