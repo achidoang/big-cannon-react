@@ -27,4 +27,11 @@ export const setupPhysics = () => {
     contactEquationStiffness: 1e8,
     contactEquationRelaxation: 2,
   });
+
+  useContactMaterial("ballMaterial", "barierMaterial", {
+    restitution: 0.8,
+    friction: 0.5,
+    contactEquationStiffness: 1e8,
+    contactEquationRelaxation: 2,
+  });
 };

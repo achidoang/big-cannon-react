@@ -7,6 +7,7 @@ import useGameStore from "../state/useGameStore";
 import RotatingFloor from "./RotatingFloor";
 import HollowCylinder from "./HollowCylinder";
 import HollowCylinderTop from "./HollowCylinderTop";
+import BarrierTube from "./BarrierTube";
 
 export default function GameBoard() {
   const balls = useGameStore((state) => state.balls);
@@ -43,12 +44,26 @@ export default function GameBoard() {
       </mesh>
 
       <RotatingFloor />
-      {/* <HollowCylinder /> */}
+      <HollowCylinder />
       <HollowCylinderTop />
 
       {balls.map((ball) => (
         <Ball key={ball.id} position={ball.position} />
       ))}
+
+      {/* Tambahkan 8 buah BarrierTube di sekitar tabung utama */}
+      {[...Array(6)].map((_, i) => {
+        const angle = (i / 6) * Math.PI * 2; // Rotasi setiap tabung
+        const x = Math.cos(angle) * 2.9;
+        const z = Math.sin(angle) * 2.9;
+        return (
+          <BarrierTube
+            key={i}
+            position={[x, 0, z]} // Posisi sesuai dengan radius lantai
+            rotation={[0, angle, 0]} // Rotasi menghadap tabung utama
+          />
+        );
+      })}
     </>
   );
 }

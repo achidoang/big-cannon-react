@@ -54,12 +54,14 @@ export default function HoleCover({ index, radius, angle, floorRef }) {
   return (
     <>
       {/* Visual representation of the hole cover */}
-      <mesh ref={coverRef}>
+      <mesh ref={coverRef} visible={closedHoles[index]}>
         <cylinderGeometry args={[0.37, 0.3, 0.35, 32]} />
         <meshStandardMaterial
           color="blue"
           transparent={!closedHoles[index]}
-          opacity={closedHoles[index] ? 1 : 0.5}
+          opacity={closedHoles[index] ? 1 : 0}
+          depthWrite={closedHoles[index]}
+          renderOrder={closedHoles[index] ? 1 : -1} // Prioritas rendering
         />
       </mesh>
 

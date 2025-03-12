@@ -16,9 +16,9 @@ export default function GameScene() {
       <Environment preset="warehouse" />
       {/* Fisika */}
       <Physics>
-        <Debug>
-          <GameBoard />
-        </Debug>
+        {/* <Debug> */}
+        <GameBoard />
+        {/* </Debug> */}
       </Physics>
     </>
   );
