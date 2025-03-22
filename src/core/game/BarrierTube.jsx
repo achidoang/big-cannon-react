@@ -4,7 +4,7 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 export default function BarrierTube({ position, rotation }) {
-  const outerRadius = 0.25; // Radius luar tabung kecil
+  const outerRadius = 0.3; // Radius luar tabung kecil
   const height = 8.2; // Tinggi tabung kecil
   const segments = 64; // Jumlah segmen agar bentuk halus
 
@@ -33,8 +33,8 @@ export default function BarrierTube({ position, rotation }) {
         color="white"
         roughness={0.8}
         transparent
-        opacity={0.6}
-        side={THREE.DoubleSide}
+        opacity={1}
+        // side={THREE.DoubleSide}
       />
     </mesh>
   );

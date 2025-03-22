@@ -5,11 +5,11 @@ import { useSphere } from "@react-three/cannon";
 export default function Ball({ position }) {
   // Menggunakan physics untuk bola
   const [ref] = useSphere(() => ({
-    mass: 1, // Berat bola
+    mass: 1.5, // Berat bola
     position, // Posisi awal bola
     args: [0.18], // Radius bola
     material: "ballMaterial", // Gunakan material fisika
-    restitution: 0.9, // efek pantulan tinggi
+    // restitution: 0.9, // efek pantulan tinggi
     userData: { type: "ball" },
   }));
 

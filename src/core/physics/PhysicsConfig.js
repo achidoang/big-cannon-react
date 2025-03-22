@@ -22,7 +22,7 @@ export const setupPhysics = () => {
   });
 
   useContactMaterial("ballMaterial", "floorMaterial", {
-    restitution: 0.8,
+    restitution: 0.9,
     friction: 0.5,
     contactEquationStiffness: 1e8,
     contactEquationRelaxation: 2,

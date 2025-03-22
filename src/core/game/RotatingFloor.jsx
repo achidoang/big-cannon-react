@@ -6,26 +6,20 @@ import { useRef } from "react";
 import HoleCover from "./HoleCover";
 
 export default function RotatingFloor() {
-  // Radius luar lantai
-  const outerRadius = 3;
-  // Radius lubang pada lantai
-  const holeRadius = 0.35;
+  const outerRadius = 3; // Radius luar lantai
+  const holeRadius = 0.35; // Radius lubang
 
-  // Membuat bentuk dasar lantai
+  // Membuat bentuk lantai dengan lubang
   const shape = new THREE.Shape();
   shape.absarc(0, 0, outerRadius, 0, Math.PI * 2, false);
 
-  // Konfigurasi jumlah dan posisi lubang dalam 2 lingkaran
   const holeConfigs = [
-    { count: 4, radius: 1.1 }, // 4 lubang dalam lingkaran kecil
-    { count: 6, radius: 2.4 }, // 6 lubang dalam lingkaran besar
+    { count: 4, radius: 1.1 }, // Lubang dalam lingkaran kecil
+    { count: 6, radius: 2.2 }, // Lubang dalam lingkaran besar
   ];
 
-  const holePositions = [];
-
-  // Membuat lubang pada lantai berdasarkan konfigurasi
-  holeConfigs.forEach(({ count, radius }) => {
-    for (let i = 0; i < count; i++) {
+  const holePositions = holeConfigs.flatMap(({ count, radius }) =>
+    Array.from({ length: count }, (_, i) => {
       const angle = (i / count) * Math.PI * 2;
       const x = Math.cos(angle) * radius;
       const y = Math.sin(angle) * radius;
@@ -34,38 +28,37 @@ export default function RotatingFloor() {
       hole.absarc(x, y, holeRadius, 0, Math.PI * 2, true);
       shape.holes.push(hole);
 
-      holePositions.push({ x, y, angle, radius });
-    }
-  });
+      return { x, y, angle, radius };
+    })
+  );
 
-  // Membuat geometri lantai dengan lubang yang sudah dibuat
+  // Membuat geometri lantai dan menyesuaikan orientasinya
   const floorGeometry = new THREE.ShapeGeometry(shape);
-  // Memutar geometri agar menjadi lantai horizontal
   floorGeometry.rotateX(-Math.PI / 2);
 
-  // Mengambil atribut posisi dan indeks untuk collision physics
+  // Mengambil atribut posisi dan indeks untuk keperluan physics
   const vertices = floorGeometry.attributes.position.array;
   const indices = floorGeometry.index?.array || [];
 
   const floorRef = useRef();
 
-  // Membuat physics mesh menggunakan Trimesh (untuk collision)
+  // Menggunakan physics Trimesh untuk lantai
   const [ref, api] = useTrimesh(() => ({
     args: [vertices, indices],
-    position: [0, -1.5, 0], // Menempatkan lantai sedikit ke bawah
-    type: "Kinematic", // Lantai bergerak tetapi tidak terpengaruh oleh physics
+    position: [0, -1.5, 0],
+    type: "Kinematic",
     material: "floorMaterial",
   }));
 
-  // Menggunakan useFrame untuk memutar lantai setiap frame
+  // Rotasi lantai setiap frame
   useFrame(() => {
     if (ref.current) {
-      const rotationY = ref.current.rotation.y + 0.01; // Menambah rotasi secara bertahap
-      ref.current.rotation.y = rotationY;
+      ref.current.rotation.y += 0.01;
 
-      // Mengupdate quaternion agar physics mengikuti rotasi
-      const quaternion = new THREE.Quaternion();
-      quaternion.setFromEuler(new THREE.Euler(0, rotationY, 0));
+      // Perbarui quaternion agar physics mengikuti rotasi
+      const quaternion = new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(0, ref.current.rotation.y, 0)
+      );
       api.quaternion.set(
         quaternion.x,
         quaternion.y,
@@ -77,7 +70,7 @@ export default function RotatingFloor() {
 
   return (
     <>
-      {/* Mesh visual untuk lantai */}
+      {/* Mesh lantai */}
       <mesh ref={ref} geometry={floorGeometry}>
         <meshStandardMaterial
           color="green"
@@ -86,7 +79,7 @@ export default function RotatingFloor() {
         />
       </mesh>
 
-      {/* Menambahkan penutup lubang */}
+      {/* Penutup lubang */}
       {holePositions.map((pos, index) => (
         <HoleCover
           key={index}
