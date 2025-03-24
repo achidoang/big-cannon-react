@@ -6,6 +6,7 @@ import GameScene from "./pages/GameScene";
 import MainMenu from "./pages/MainMenu";
 import useGameStore from "./core/state/useGameStore";
 import { OrbitControls } from "@react-three/drei";
+import "./styles/DaftarBola.css";
 
 function App() {
   const isInGame = useGameStore((state) => state.isInGame);
@@ -34,39 +35,21 @@ function App() {
 
           {/* Daftar Bola di Sudut Kanan Atas */}
           {ballQueue.length > 0 && (
-            <div
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                background: "rgba(255, 255, 255, 0.8)",
-                padding: "10px",
-                borderRadius: "5px",
-              }}
-            >
-              <h4>Daftar Bola:</h4>
-              <ul style={{ listStyle: "none", padding: 0 }}>
-                {ballQueue.map((ball) => (
-                  <li key={ball.id}>{ball.name}</li>
+            <div className="ball-list-container">
+              <h4 className="ball-list-title">Daftar Bola</h4>
+              <ul className="ball-list">
+                {ballQueue.map((ball, index) => (
+                  <li key={ball.id} className="ball-item">
+                    <span className="ball-number">{index + 1}.</span>{" "}
+                    {ball.name}
+                  </li>
                 ))}
               </ul>
             </div>
           )}
 
           {/* Tombol Drop Ball di Tengah Bawah */}
-          <button
-            onClick={dropBall}
-            style={{
-              position: "absolute",
-              bottom: "20px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              background: "white",
-              padding: "10px 20px",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
+          <button className="drop-ball-button" onClick={dropBall}>
             Drop Ball
           </button>
         </>

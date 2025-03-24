@@ -13,6 +13,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -23,6 +30,8 @@ a:hover {
 }
 
 body {
+  background: var(--primary-bg);
+  /* color: white; */
   margin: 0;
   display: flex;
   place-items: center;

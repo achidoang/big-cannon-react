@@ -1,44 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+:root {
+  --primary-bg: #1e1e2e;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --border-color: rgba(255, 255, 255, 0.3);
+  --text-color: white;
+  --accent: #4a90e2;
+  --danger: #e24a4a;
+}
+
 .menu-container {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background: url("../assets/bg-game.png") no-repeat center center/cover;
+  background: var(--primary-bg) url("../assets/bg-game.png") no-repeat center
+    center/cover;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: opacity 0.5s ease-out;
+  padding: 20px;
 }
 
 .menu-content {
   text-align: center;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 20px;
-  border-radius: 10px;
+  background: var(--glass-bg);
+  padding: 25px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  width: 90%;
+  max-width: 400px;
 }
 
 .menu-content h1 {
-  color: white;
-  font-size: 2rem;
+  color: var(--text-color);
+  font-size: 2.2rem;
   margin-bottom: 20px;
+  font-family: "Inter", sans-serif;
 }
 
-.menu-content button {
-  display: block;
-  width: 200px;
-  padding: 10px;
-  margin: 10px auto;
-  background: white;
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  outline: none;
   font-size: 1rem;
-  transition: background 0.3s;
+  margin-bottom: 15px;
+  text-align: center;
+  transition: 0.3s;
 }
 
-.menu-content button:hover {
-  background: #ddd;
+input:focus {
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+  font-family: "Inter", sans-serif;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:not(.danger, .start-btn) {
+  background: var(--accent);
+  color: white;
+}
+
+button.danger {
+  background: var(--danger);
+  color: white;
+  margin-left: 15px;
+}
+
+button.start-btn {
+  background: white;
+  color: var(--primary-bg);
+  margin-top: 15px;
+}
+
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+.ball-list {
+  margin-top: 20px;
+}
+
+.ball-list h3 {
+  color: var(--text-color);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.ball-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.ball-list li {
+  color: var(--text-color);
+  font-size: 1rem;
+  padding: 5px 0;
 }
 
 .fade-out {
   opacity: 0;
+}
+
+/* Media Query untuk layar kecil */
+@media (max-width: 480px) {
+  .menu-content {
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .menu-content h1 {
+    font-size: 1.8rem;
+  }
+
+  input {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 10px 15px;
+  }
 }
