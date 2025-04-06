@@ -12,11 +12,28 @@ function App() {
   const isInGame = useGameStore((state) => state.isInGame);
   const ballQueue = useGameStore((state) => state.ballQueue);
   const dropBall = useGameStore((state) => state.dropBall);
+  const gameFinished = useGameStore((state) => state.gameFinished);
+  const setGameFinished = useGameStore((state) => state.setGameFinished);
 
   return (
     <div style={{ width: "100vw", height: "100vh", background: "#111" }}>
       {!isInGame ? (
-        <MainMenu />
+        gameFinished ? (
+          <div className="menu-container">
+            <div className="menu-content">
+              <h2>🎉 Permainan Selesai!</h2>
+              <p>Semua bola telah dijatuhkan.</p>
+              <button
+                className="start-btn"
+                onClick={() => setGameFinished(false)}
+              >
+                Kembali ke Menu
+              </button>
+            </div>
+          </div>
+        ) : (
+          <MainMenu />
+        )
       ) : (
         <>
           <Canvas>
@@ -33,7 +50,6 @@ function App() {
             </Suspense>
           </Canvas>
 
-          {/* Daftar Bola di Sudut Kanan Atas */}
           {ballQueue.length > 0 && (
             <div className="ball-list-container">
               <h4 className="ball-list-title">Daftar Bola</h4>
@@ -48,7 +64,6 @@ function App() {
             </div>
           )}
 
-          {/* Tombol Drop Ball di Tengah Bawah */}
           <button className="drop-ball-button" onClick={dropBall}>
             Drop Ball
           </button>

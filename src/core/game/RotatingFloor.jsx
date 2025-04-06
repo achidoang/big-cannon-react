@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { useTrimesh } from "@react-three/cannon";
 import * as THREE from "three";
 import { useRef } from "react";
-import HoleCover from "./HoleCover";
+import HoleCover from "../components/HoleCover";
 
 export default function RotatingFloor() {
   const outerRadius = 3; // Radius luar lantai

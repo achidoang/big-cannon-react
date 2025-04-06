@@ -1,6 +1,6 @@
 // src/core/game/GameBoard.jsx
 import { useTrimesh, usePlane } from "@react-three/cannon";
-import Ball from "./Ball";
+import Ball from "../components/Ball";
 import { CylinderGeometry } from "three";
 import { setupPhysics } from "../physics/PhysicsConfig";
 import useGameStore from "../state/useGameStore";
@@ -10,7 +10,8 @@ import HollowCylinderTop from "./HollowCylinderTop";
 import BarrierTube from "./BarrierTube";
 
 export default function GameBoard() {
-  const balls = useGameStore((state) => state.balls);
+  // const balls = useGameStore((state) => state.balls);
+  const balls = useGameStore((s) => s.balls);
 
   setupPhysics();
 
