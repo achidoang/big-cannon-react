@@ -50,7 +50,7 @@ function App() {
             </Suspense>
           </Canvas>
 
-          {ballQueue.length > 0 && (
+          {/* {ballQueue.length > 0 && (
             <div className="ball-list-container">
               <h4 className="ball-list-title">Daftar Bola</h4>
               <ul className="ball-list">
@@ -62,7 +62,7 @@ function App() {
                 ))}
               </ul>
             </div>
-          )}
+          )} */}
 
           <button className="drop-ball-button" onClick={dropBall}>
             Drop Ball
