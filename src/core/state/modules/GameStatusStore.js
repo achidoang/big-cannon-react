@@ -1,3 +1,5 @@
+// src/core/state/modules/GameStatusStore.js
+
 export const createGameStatusSlice = (set) => ({
   isInGame: false,
   gameFinished: false,

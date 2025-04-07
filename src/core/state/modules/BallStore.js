@@ -36,6 +36,9 @@ export const createBallSlice = (set) => ({
         };
       }
 
+      // ⬇⬇⬇ PANGGIL INI SAAT BOLA DIJATUHKAN
+      state.incrementHoleCounters?.();
+
       const [nextBall, ...remainingBalls] = state.ballQueue;
       const newBall = {
         id: Date.now(),

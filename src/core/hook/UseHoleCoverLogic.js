@@ -1,4 +1,4 @@
-// src/core/hook/UseHoleCoverLogic.js
+// src/core/hook/useHoleCoverLogic.js
 
 import { useCylinder } from "@react-three/cannon";
 import { useEffect, useRef } from "react";
@@ -8,7 +8,8 @@ import { computeHolePosition } from "../utils/positionUtils";
 
 export function useHoleCoverLogic(index, radius, angle, floorRef) {
   const coverRef = useRef();
-  const closedHoles = useGameStore((s) => s.closedHoles);
+
+  const isClosed = useGameStore((s) => s.closedHoles[index]);
   const closeHole = useGameStore((s) => s.closeHole);
   const removeBallByBodyId = useGameStore((s) => s.removeBallByBodyId);
 
@@ -26,10 +27,8 @@ export function useHoleCoverLogic(index, radius, angle, floorRef) {
     if (body?.userData?.type === "ball") {
       const id = body.id;
 
-      // Hapus dari game store
+      // Hapus bola
       removeBallByBodyId(id);
-
-      // Hapus dari physics world
       if (body.remove) body.remove();
 
       // Tutup lubang
@@ -42,7 +41,7 @@ export function useHoleCoverLogic(index, radius, angle, floorRef) {
 
     const rotationY = floorRef.current.rotation.y;
     const { x, z } = computeHolePosition(angle, radius, rotationY);
-    const y = closedHoles[index] ? -1.7 : -2.15;
+    const y = isClosed ? -1.7 : -2.15;
 
     coverRef.current.position.set(x, y, z);
     physicsApi.position.set(x, y, z);
@@ -51,6 +50,6 @@ export function useHoleCoverLogic(index, radius, angle, floorRef) {
   return {
     coverRef,
     physicsRef,
-    isClosed: closedHoles[index],
+    isClosed,
   };
 }

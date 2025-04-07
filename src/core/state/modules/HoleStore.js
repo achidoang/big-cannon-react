@@ -12,7 +12,33 @@ export const createHoleSlice = (set) => ({
       },
       holeCounters: {
         ...state.holeCounters,
-        [index]: (state.holeCounters[index] || 0) + 1,
+        [index]: 0, // Mulai counter dari nol saat lubang ditutup
       },
     })),
+
+  incrementHoleCounters: () =>
+    set((state) => {
+      const updatedCounters = {};
+      const updatedClosedHoles = { ...state.closedHoles };
+
+      for (const index in state.closedHoles) {
+        if (state.closedHoles[index]) {
+          const count = (state.holeCounters[index] || 0) + 1;
+          updatedCounters[index] = count;
+
+          if (count >= 5) {
+            updatedClosedHoles[index] = false;
+            updatedCounters[index] = 0;
+          }
+        }
+      }
+
+      return {
+        holeCounters: {
+          ...state.holeCounters,
+          ...updatedCounters,
+        },
+        closedHoles: updatedClosedHoles,
+      };
+    }),
 });
