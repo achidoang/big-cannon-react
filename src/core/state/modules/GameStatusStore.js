@@ -9,6 +9,8 @@ export const createGameStatusSlice = (set) => ({
   startGame: () =>
     set((state) => {
       if (state.ballQueue.length === 0) return;
+      state.resetHoles?.();
+
       return { isInGame: true, currentIteration: 1, gameFinished: false };
     }),
 

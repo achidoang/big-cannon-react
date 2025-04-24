@@ -8,10 +8,16 @@ import { computeHolePosition } from "../utils/positionUtils";
 
 export function useHoleCoverLogic(index, radius, angle, floorRef) {
   const coverRef = useRef();
-
   const isClosed = useGameStore((s) => s.closedHoles[index]);
   const closeHole = useGameStore((s) => s.closeHole);
   const removeBallByBodyId = useGameStore((s) => s.removeBallByBodyId);
+
+  // Gunakan useRef agar isClosed tetap konsisten di dalam handleBallCollision
+  const isClosedRef = useRef(isClosed);
+
+  useEffect(() => {
+    isClosedRef.current = isClosed;
+  }, [isClosed]);
 
   const [physicsRef, physicsApi] = useCylinder(() => ({
     args: [0.5, 0.5, 0.35, 32],
@@ -25,13 +31,14 @@ export function useHoleCoverLogic(index, radius, angle, floorRef) {
   function handleBallCollision(e) {
     const body = e.body;
     if (body?.userData?.type === "ball") {
-      const id = body.id;
+      // Jika HoleCover sedang menutup lubang, bola tidak dihapus
+      if (isClosedRef.current) return;
 
-      // Hapus bola
+      const id = body.id;
       removeBallByBodyId(id);
       if (body.remove) body.remove();
 
-      // Tutup lubang
+      // Setelah bola masuk, tutup lubang
       closeHole(index);
     }
   }

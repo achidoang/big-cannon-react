@@ -23,6 +23,8 @@ export const createBallSlice = (set) => ({
     set((state) => {
       if (state.ballQueue.length === 0) {
         if (state.currentIteration < state.repeatCount) {
+          // Tambahkan resetHoles di sini
+          state.resetHoles?.();
           return {
             ballQueue: [...state.ballQueueBackup],
             currentIteration: state.currentIteration + 1,

@@ -41,4 +41,10 @@ export const createHoleSlice = (set) => ({
         closedHoles: updatedClosedHoles,
       };
     }),
+
+  resetHoles: () =>
+    set(() => ({
+      closedHoles: {},
+      holeCounters: {},
+    })),
 });

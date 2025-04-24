@@ -1,78 +1,91 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
 
 :root {
-  --primary-bg: #1e1e2e;
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --border-color: rgba(255, 255, 255, 0.3);
-  --text-color: white;
-  --accent: #4a90e2;
+  --primary-bg: #0f0f1e;
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --border-color: rgba(255, 255, 255, 0.2);
+  --text-color: #ffffff;
+  --accent: #4aa8e2;
   --danger: #e24a4a;
+}
+
+body {
+  font-family: "Inter", sans-serif;
 }
 
 .menu-container {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background: var(--primary-bg) url("../assets/bg-game.png") no-repeat center
-    center/cover;
+  background: var(--primary-bg);
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.5s ease-out;
   padding: 20px;
+  transition: opacity 0.5s ease-out;
 }
 
 .menu-content {
-  text-align: center;
   background: var(--glass-bg);
-  padding: 25px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   border: 1px solid var(--border-color);
-  width: 90%;
-  max-width: 400px;
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 700px;
+  color: var(--text-color);
+  text-align: center;
 }
 
 .menu-content h1 {
-  color: var(--text-color);
-  font-size: 2.2rem;
+  font-size: 2rem;
   margin-bottom: 20px;
-  font-family: "Inter", sans-serif;
+  color: var(--text-color);
+}
+
+.label {
+  display: block;
+  text-align: left;
+  margin-bottom: 4px;
+  font-weight: 600;
 }
 
 input {
   width: 100%;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
-  outline: none;
   font-size: 1rem;
-  margin-bottom: 15px;
-  text-align: center;
-  transition: 0.3s;
+  margin-bottom: 20px;
+  background-color: #111;
+  color: white;
+  outline: none;
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow 0.3s;
 }
 
 input:focus {
-  box-shadow: 0 0 8px var(--accent);
+  box-shadow: 0 0 6px 2px var(--accent);
 }
 
 .button-group {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 button {
-  padding: 12px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 12px 10px;
+  border-radius: 10px;
   font-weight: 600;
-  transition: 0.3s ease-in-out;
-  font-family: "Inter", sans-serif;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+  transition: all 0.3s;
 }
 
 button:hover {
@@ -80,74 +93,80 @@ button:hover {
 }
 
 button:active {
-  transform: scale(0.98);
-}
-
-button:not(.danger, .start-btn) {
-  background: var(--accent);
-  color: white;
+  transform: scale(0.95);
 }
 
 button.danger {
   background: var(--danger);
-  color: white;
-  margin-left: 15px;
 }
 
 button.start-btn {
   background: white;
   color: var(--primary-bg);
-  margin-top: 15px;
-}
-
-button:disabled {
-  background: gray;
-  cursor: not-allowed;
+  margin-top: 5px;
+  font-weight: bold;
 }
 
 .ball-list {
-  margin-top: 20px;
-}
-
-.ball-list h3 {
-  color: var(--text-color);
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+  margin-top: 15px;
+  text-align: left;
 }
 
 .ball-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.ball-list li {
-  color: var(--text-color);
-  font-size: 1rem;
-  padding: 5px 0;
+  padding-left: 1.2rem;
+  list-style-type: disc;
+  margin-bottom: 10px;
 }
 
 .fade-out {
   opacity: 0;
 }
 
-/* Media Query untuk layar kecil */
 @media (max-width: 480px) {
   .menu-content {
     padding: 15px;
-    border-radius: 10px;
   }
 
   .menu-content h1 {
     font-size: 1.8rem;
   }
 
-  input {
-    font-size: 0.9rem;
-    padding: 10px;
+  input,
+  button {
+    font-size: 0.95rem;
   }
 
-  button {
-    font-size: 0.9rem;
-    padding: 10px 15px;
+  .button-group {
+    flex-direction: column;
   }
+}
+
+.ball-scroll {
+  max-height: 160px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding-right: 5px;
+}
+
+.ball-items {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.ball-item {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  animation: fadeInUp 0.3s ease;
+}
+
+.repeat-control {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 15px;
 }
