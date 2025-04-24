@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import useGameStore from "../core/state/useGameStore";
-import "../styles/MainMenu.css";
 import useMusicStore from "../core/state/useMusicStore";
+import "../styles/MainMenu.css";
 
 export default function MainMenu() {
   const startGame = useGameStore((state) => state.startGame);
@@ -12,12 +12,15 @@ export default function MainMenu() {
   const clearBallQueue = useGameStore((state) => state.clearBallQueue);
   const ballQueue = useGameStore((state) => state.ballQueue);
 
+  const isMusicPlaying = useMusicStore((state) => state.isPlaying);
+  const toggleMusic = useMusicStore((state) => state.toggleMusic);
+  const volume = useMusicStore((state) => state.volume);
+  const setVolume = useMusicStore((state) => state.setVolume);
+
   const [isFading, setIsFading] = useState(false);
   const [ballInput, setBallInput] = useState("");
   const [repeatInput, setRepeatInput] = useState("1");
-
-  const isMusicPlaying = useMusicStore((state) => state.isPlaying);
-  const toggleMusic = useMusicStore((state) => state.toggleMusic);
+  const [showSettings, setShowSettings] = useState(false);
 
   const handleStart = () => {
     if (ballQueue.length === 0) return;
@@ -60,16 +63,12 @@ export default function MainMenu() {
           <button className="danger" onClick={handleClearBalls}>
             🗑 Hapus Daftar
           </button>
-
-          <button onClick={toggleMusic}>
-            {isMusicPlaying ? "🔊 Musik: ON" : "🔇 Musik: OFF"}
-          </button>
+          <button onClick={() => setShowSettings(true)}>⚙️ Pengaturan</button>
         </div>
 
         {ballQueue.length > 0 && (
           <div className="ball-list">
             <h3>🎱 Daftar Bola:</h3>
-
             <div className="ball-scroll">
               <ul className="ball-items">
                 {ballQueue.map((ball, index) => (
@@ -96,6 +95,37 @@ export default function MainMenu() {
           </div>
         )}
       </div>
+
+      {showSettings && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h3>⚙️ Pengaturan</h3>
+            <button className="popup-button" onClick={toggleMusic}>
+              {isMusicPlaying ? "🔇 Matikan Musik" : "🔊 Nyalakan Musik"}
+            </button>
+
+            <div style={{ marginTop: 20 }}>
+              <p style={{ marginBottom: 5 }}>Volume Musik:</p>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={volume}
+                onChange={(e) => setVolume(parseFloat(e.target.value))}
+              />
+            </div>
+
+            <button
+              className="popup-button"
+              style={{ marginTop: 25, background: "#ccc", color: "#000" }}
+              onClick={() => setShowSettings(false)}
+            >
+              ✖ Tutup
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

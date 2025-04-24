@@ -40,8 +40,6 @@ export default function RotatingFloor() {
   const vertices = floorGeometry.attributes.position.array;
   const indices = floorGeometry.index?.array || [];
 
-  const floorRef = useRef();
-
   // Menggunakan physics Trimesh untuk lantai
   const [ref, api] = useTrimesh(() => ({
     args: [vertices, indices],

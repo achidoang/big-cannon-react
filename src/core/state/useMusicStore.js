@@ -1,21 +1,26 @@
 // src/core/state/useMusicStore.js
 import { create } from "zustand";
 
-const audio = new Audio("/sound/music.mp3");
+const audio = new Audio("/public/sound/music.mp3");
 audio.loop = true;
+audio.volume = 0.5; // default volume
 
-const useMusicStore = create((set) => ({
+const useMusicStore = create((set, get) => ({
   isPlaying: false,
+  volume: 0.5,
 
   toggleMusic: async () => {
-    set((state) => {
-      if (state.isPlaying) {
-        audio.pause();
-      } else {
-        audio.play().catch(console.error);
+    const { isPlaying } = get();
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      try {
+        await audio.play();
+      } catch (e) {
+        console.error("Playback error:", e);
       }
-      return { isPlaying: !state.isPlaying };
-    });
+    }
+    set({ isPlaying: !isPlaying });
   },
 
   playMusic: async () => {
@@ -23,13 +28,19 @@ const useMusicStore = create((set) => ({
       await audio.play();
       set({ isPlaying: true });
     } catch (err) {
-      console.error("Error playing music:", err);
+      console.error("Play error:", err);
     }
   },
 
   pauseMusic: () => {
     audio.pause();
     set({ isPlaying: false });
+  },
+
+  setVolume: (value) => {
+    const vol = Math.max(0, Math.min(1, value)); // clamp
+    audio.volume = vol;
+    set({ volume: vol });
   },
 }));
 
