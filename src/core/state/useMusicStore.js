@@ -1,7 +1,9 @@
 // src/core/state/useMusicStore.js
 import { create } from "zustand";
 
-const audio = new Audio("/public/sound/music.mp3");
+// const audio = new Audio("/public/sound/music.mp3");
+const audio = new Audio("/sound/music.mp3"); // ✅
+
 audio.loop = true;
 audio.volume = 0.5; // default volume
 
