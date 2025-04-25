@@ -67,11 +67,15 @@ export default function MainMenu() {
         />
 
         <div className="button-group">
-          <button onClick={handleSetBalls}>✔ Buat Bola</button>
+          <button className="general" onClick={handleSetBalls}>
+            ✔ Buat Bola
+          </button>
           <button className="danger" onClick={handleClearBalls}>
             🗑 Hapus Daftar
           </button>
-          <button onClick={() => setShowSettings(true)}>⚙️ Pengaturan</button>
+          <button className="general" onClick={() => setShowSettings(true)}>
+            ⚙️ Pengaturan
+          </button>
         </div>
 
         {ballQueue.length > 0 && (
