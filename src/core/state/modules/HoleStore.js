@@ -4,6 +4,15 @@ export const createHoleSlice = (set) => ({
   closedHoles: {},
   holeCounters: {},
 
+  showHolePopup: false,
+  holeMessage: "",
+
+  setHolePopup: (show, message = "") =>
+    set(() => ({
+      showHolePopup: show,
+      holeMessage: message,
+    })),
+
   closeHole: (index) =>
     set((state) => ({
       closedHoles: {

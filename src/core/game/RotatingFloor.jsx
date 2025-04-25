@@ -14,7 +14,7 @@ export default function RotatingFloor() {
   shape.absarc(0, 0, outerRadius, 0, Math.PI * 2, false);
 
   const holeConfigs = [
-    { count: 4, radius: 1.1 }, // Lubang dalam lingkaran kecil
+    { count: 4, radius: 1 }, // Lubang dalam lingkaran kecil
     { count: 6, radius: 2.2 }, // Lubang dalam lingkaran besar
   ];
 

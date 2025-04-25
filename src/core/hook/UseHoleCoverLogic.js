@@ -40,6 +40,21 @@ export function useHoleCoverLogic(index, radius, angle, floorRef) {
 
       // Setelah bola masuk, tutup lubang
       closeHole(index);
+
+      const holeMessages = [
+        "1. Hebat! Bola masuk lubang pertama!",
+        "2. Nice! Kamu menaklukkan lubang kedua!",
+        "3. Keren! Lubang ketiga sudah lewat!",
+        "4. Luar biasa! Lubang keempat selesai!",
+        "5. Fantastic! Lubang kelima aman!",
+        "6. Great shot! Lubang keenam done!",
+        "7. Amazing! Lubang ketujuh selesai!",
+        "8. Impresif! Lubang kedelapan clear!",
+        "9. Gokil! Tinggal satu lagi!",
+        "10. Selamat! Semua lubang selesai!",
+      ];
+      const message = holeMessages[index] || "Bola masuk lubang!";
+      useGameStore.getState().setHolePopup(true, message);
     }
   }
 
