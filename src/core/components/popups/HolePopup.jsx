@@ -1,4 +1,4 @@
-// src/ui/popups/HolePopup.jsx
+// src/core/components/popups/HolePopup.jsx
 import React from "react";
 
 export default function HolePopup({ message, onClose }) {

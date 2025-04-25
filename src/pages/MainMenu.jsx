@@ -22,12 +22,15 @@ export default function MainMenu() {
   const [repeatInput, setRepeatInput] = useState("1");
   const [showSettings, setShowSettings] = useState(false);
 
+  const selectedTheme = useGameStore((state) => state.selectedTheme);
+  const setSelectedTheme = useGameStore((state) => state.setSelectedTheme);
+
   const handleStart = () => {
     if (ballQueue.length === 0) return;
     const repeatCount = Math.max(1, parseInt(repeatInput, 10) || 1);
     setRepeatCount(repeatCount);
     setIsFading(true);
-    setTimeout(() => startGame(), 500);
+    setTimeout(() => startGame(selectedTheme), 500);
   };
 
   const handleBallInputChange = (e) => setBallInput(e.target.value);
@@ -43,6 +46,11 @@ export default function MainMenu() {
   const handleClearBalls = () => {
     clearBallQueue();
     setBallInput("");
+  };
+
+  const handleThemeChange = (e) => {
+    const theme = e.target.value;
+    setSelectedTheme(theme); // Mengubah tema di store
   };
 
   return (
@@ -87,6 +95,17 @@ export default function MainMenu() {
                 value={repeatInput}
                 onChange={handleRepeatInputChange}
               />
+              <div className="section">
+                <label className="label">🎨 Pilih Tema:</label>
+                <select value={selectedTheme} onChange={handleThemeChange}>
+                  <option value="Action">Aksi</option>
+                  <option value="Horor">Horor</option>
+                  <option value="Komedi">Komedi</option>
+                  <option value="Romance">Romantis</option>
+                  <option value="Sci-fi">Sci-Fi</option>
+                  <option value="Survival">Survival</option>
+                </select>
+              </div>
 
               <button className="start-btn" onClick={handleStart}>
                 🚀 Mulai Permainan

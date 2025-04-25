@@ -1,15 +1,14 @@
 // src/core/components/Ball.jsx
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useSphere } from "@react-three/cannon";
 import useGameStore from "../state/useGameStore";
 
 export default function Ball({ id, position }) {
-  const localRef = useRef();
-  const [ref, api] = useSphere(() => ({
+  const [ref] = useSphere(() => ({
     mass: 1.5,
     position,
-    args: [0.245],
+    args: [0.22],
     material: "ballMaterial",
     userData: { type: "ball", id }, // Penting!
   }));
@@ -24,7 +23,7 @@ export default function Ball({ id, position }) {
 
   return (
     <mesh ref={ref} castShadow>
-      <sphereGeometry args={[0.245, 32, 32]} />
+      <sphereGeometry args={[0.22, 32, 32]} />
       <meshStandardMaterial color="red" />
     </mesh>
   );

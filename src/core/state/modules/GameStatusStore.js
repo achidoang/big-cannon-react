@@ -5,6 +5,8 @@ export const createGameStatusSlice = (set) => ({
   gameFinished: false,
   repeatCount: 1,
   currentIteration: 0,
+  selectedTheme: "Action", // default
+  setSelectedTheme: (theme) => set({ selectedTheme: theme }),
 
   startGame: () =>
     set((state) => {
