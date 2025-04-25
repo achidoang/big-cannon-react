@@ -1,18 +1,24 @@
 // src/core/state/useMusicStore.js
 import { create } from "zustand";
 
-// const audio = new Audio("/public/sound/music.mp3");
-const audio = new Audio("/sound/music.mp3"); // ✅
-
-audio.loop = true;
-audio.volume = 0.5; // default volume
-
 const useMusicStore = create((set, get) => ({
   isPlaying: false,
   volume: 0.5,
+  audio: null, // simpan objek audio di state
+
+  initAudio: () => {
+    if (!get().audio) {
+      const audio = new Audio("/sound/music.mp3");
+      audio.loop = true;
+      audio.volume = get().volume;
+      set({ audio });
+    }
+  },
 
   toggleMusic: async () => {
-    const { isPlaying } = get();
+    const { isPlaying, audio } = get();
+    if (!audio) return;
+
     if (isPlaying) {
       audio.pause();
     } else {
@@ -26,6 +32,9 @@ const useMusicStore = create((set, get) => ({
   },
 
   playMusic: async () => {
+    const audio = get().audio;
+    if (!audio) return;
+
     try {
       await audio.play();
       set({ isPlaying: true });
@@ -35,13 +44,16 @@ const useMusicStore = create((set, get) => ({
   },
 
   pauseMusic: () => {
+    const audio = get().audio;
+    if (!audio) return;
     audio.pause();
     set({ isPlaying: false });
   },
 
   setVolume: (value) => {
-    const vol = Math.max(0, Math.min(1, value)); // clamp
-    audio.volume = vol;
+    const vol = Math.max(0, Math.min(1, value));
+    const audio = get().audio;
+    if (audio) audio.volume = vol;
     set({ volume: vol });
   },
 }));

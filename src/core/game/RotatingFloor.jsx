@@ -7,7 +7,7 @@ import HoleCover from "../components/HoleCover";
 
 export default function RotatingFloor() {
   const outerRadius = 3; // Radius luar lantai
-  const holeRadius = 0.35; // Radius lubang
+  const holeRadius = 0.3; // Radius lubang
 
   // Membuat bentuk lantai dengan lubang
   const shape = new THREE.Shape();
