@@ -101,8 +101,14 @@ function App() {
       <BallListSidebar />
 
       {showSessionPopup && (
-        <SessionPopup onClose={() => setShowSessionPopup(false)} />
+        <SessionPopup
+          onClose={() => {
+            setShowSessionPopup(false);
+            setIsDropDisabled(false); // ✅ Enable kembali tombol drop
+          }}
+        />
       )}
+
       {showConfirmPopup && (
         <ConfirmPopup onClose={() => setShowConfirmPopup(false)} />
       )}

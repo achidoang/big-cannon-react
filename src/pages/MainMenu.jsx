@@ -30,7 +30,7 @@ export default function MainMenu() {
     const repeatCount = Math.max(1, parseInt(repeatInput, 10) || 1);
     setRepeatCount(repeatCount);
     setIsFading(true);
-    setTimeout(() => startGame(selectedTheme), 500);
+    setTimeout(() => startGame(selectedTheme), 200);
   };
 
   const handleBallInputChange = (e) => setBallInput(e.target.value);
