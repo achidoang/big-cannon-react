@@ -109,6 +109,9 @@ html,
   cursor: not-allowed;
   transform: none;
 }
+button.general {
+  background: #000;
+}
 
 .sidebar-buttons button {
   background: rgba(255, 255, 255, 0.1);

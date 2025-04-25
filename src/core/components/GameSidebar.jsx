@@ -7,7 +7,7 @@ export default function GameSidebar({
 }) {
   return (
     <div className="left-sidebar-container">
-      <button className="settings-button" onClick={onSettings}>
+      <button className="settings-button general" onClick={onSettings}>
         ⚙️ Pengaturan
       </button>
       {/* <button
@@ -26,7 +26,7 @@ export default function GameSidebar({
         {isDropDisabled ? "Menunggu..." : "Drop Ball"}
       </button>
 
-      <button className="back-menu-button" onClick={onBack}>
+      <button className="back-menu-button general" onClick={onBack}>
         ⬅ Kembali
       </button>
     </div>
