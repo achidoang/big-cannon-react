@@ -7,7 +7,7 @@ import useGameStore from "../state/useGameStore";
 import { computeHolePosition } from "../utils/positionUtils";
 
 const themeMessages = {
-  "Self-Acceptance": [
+  tema1: [
     "Aku bangga dengan diri sendiri, walaupun belum sempurna. Apakah aku seperti itu? Akan aku ceritakan!",
     "Aku merasa diriku mempunyai banyak hal baik yang bisa ku kembangkan, contohnya…",
     "Apakah aku suka menjadi diri sendiri atau menjadi seperti orang lain? Sampaikan!",
@@ -19,7 +19,7 @@ const themeMessages = {
     "Bacalah dan maknai quotes ini untuk mu “Hidup itu bukan tentang jadi sempurna, tetapi tentang menerima dan belajar dari setiap langkah, baik itu kemenangan atau kegagalan.”",
     "Bacalah dan maknai quotes ini untuk mu “Setiap bagian dari diriku, baik yang kuat maupun yang perlu diperbaiki, adalah bagian dari perjalanan yang membentuk siapa aku sekarang.”",
   ],
-  "Positive-Relation-with-Other": [
+  tema2: [
     "Aku merasa aman bersama teman-teman yang…",
     "Aku akan kasih tahu siapa yang bisa aku percaya buat dengerin aku…",
     "Aku punya orang yang selalu ada dan bisa berkeluh kesah, nih aku kasih tahu…",
@@ -31,7 +31,7 @@ const themeMessages = {
     "Bacalah dan maknai quotes ini untuk mu “Teman sejati itu bukan yang selalu ada saat senang, tetapi tetap tinggal, mendengar, dan peduli saat kita butuh tempat bersandar.”",
     "Bacalah dan maknai quotes ini untuk mu “Hubungan yang kuat itu tumbuh dari hati yang mau memberi, telinga yang mau mendengar, dan tangan yang mau saling membantu.”",
   ],
-  "Environmental-Mastery": [
+  tema3: [
     "Aku bisa memunculkan ide yang bermanfaat untuk…",
     "Supaya kelas tidak berantakan aku akan membuatnya menjadi lebih rapi, karena aku suka membantu, dan inilah caraku…",
     "Jika aku harus menyelesaikan tugas dalam sehari, supaya semuanya bisa dikerjakan dengan baik yang akan aku lakukan adalah…",
@@ -43,7 +43,7 @@ const themeMessages = {
     "Bacalah dan maknai quotes ini untuk mu  “Hidup adalah pilihanku. Aku bisa mengatur diriku, membuat perubahan di sekitarku, dan memilih yang terbaik untuk diriku”",
     "Bacalah dan maknai quotes ini untuk mu  “Setiap kesempatan adalah peluang untuk berkembang. Aku berani memilih apa yang terbaik untuk diriku”",
   ],
-  Autonomy: [
+  tema4: [
     "Aku pernah merasa berhasil menentukan pilihan sendiri, akan aku ceritakan perasaan ku saat itu!",
     "Aku adalah orang yang mandiri, ini lah contohnya…",
     "Aku percaya jika ada orang yang berkata bahwa banyak kekuranganku, karena…",
@@ -55,7 +55,7 @@ const themeMessages = {
     "Bacalah dan maknai quotes ini untuk mu “Tidak harus sama seperti orang lain. Cukup jadi diriku sendiri, dan itu sudah keren.”",
     "Bacalah dan maknai quotes ini untuk mu  “Setiap hari aku jadi lebih baik, karena aku tahu, cinta diri itu kunci untuk berkembang”",
   ],
-  "Personal-Growth": [
+  tema5: [
     "Jika hidupku adalah buku, ada bab yang paling seru dan menunjukkan perkembangan ku. Akan aku ceritakan yang terjadi di bab itu!",
     "Aku membayangkan diriku satu tahun dari sekarang. Dan aku melihat dalam diriku yang berbeda menjadi lebih baik, inilah perubahanku…",
     "Jika aku bisa memberi nama untuk prosesku bertumbuh kembang, aku akan menamainya dengan… karena…",
@@ -67,7 +67,7 @@ const themeMessages = {
     "Satu hal dalam diriku yang ingin tetap aku miliki sampai aku dewasa nanti adalah…",
     "Bacalah dan maknai quotes ini untuk mu  “Aku tidak harus langsung jago, yang penting aku terus maju. Pelan-pelan, tapi pasti aku upgrade diri!”",
   ],
-  "Purpose-in-Life": [
+  tema6: [
     "Aku punya hal-hal yang ingin aku capai di masa depan, dan aku semangat untuk menjalaninya. Ini dia capaian dan harapanku…",
     "Aku sudah berpikir mau jadi apa nanti, jadi langkahku sekarang lebih terarah, nih aku kasih tahu langkahku!",
     "Hal-hal yang pernah aku alami baik atau buruk, membuat aku jadi lebih kuat dan belajar banyak, salah satunya adalah…",

@@ -77,7 +77,8 @@ function App() {
             <p>Semua bola telah dijatuhkan.</p>
             <button
               className="start-btn"
-              onClick={() => setGameFinished(false)}
+              // onClick={() => setGameFinished(false)}
+              onClick={() => window.location.reload()}
             >
               Kembali ke Menu
             </button>

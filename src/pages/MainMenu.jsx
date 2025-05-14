@@ -3,6 +3,7 @@
 import { useState } from "react";
 import useGameStore from "../core/state/useGameStore";
 import useMusicStore from "../core/state/useMusicStore";
+import { useEffect } from "react";
 import "../styles/MainMenu.css";
 
 import qrImage from "../assets/qr-code.png";
@@ -27,6 +28,12 @@ export default function MainMenu() {
 
   const selectedTheme = useGameStore((state) => state.selectedTheme);
   const setSelectedTheme = useGameStore((state) => state.setSelectedTheme);
+
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  useEffect(() => {
+    setShowWelcome(true);
+  }, []);
 
   const handleStart = () => {
     if (ballQueue.length === 0) return;
@@ -108,23 +115,21 @@ export default function MainMenu() {
               <div className="section">
                 <label className="label">🎨 Pilih Tema:</label>
                 <select value={selectedTheme} onChange={handleThemeChange}>
-                  <option value="Self-Acceptance">
+                  <option value="tema1">
                     Self Acceptance (Penerimaan Diri)
                   </option>
-                  <option value="Positive-Relation-with-Other">
+                  <option value="tema2">
                     Positive Relation with Other (Hubungan Positif dengan Orang
                     Lain)
                   </option>
-                  <option value="Enviromental-Mastery">
+                  <option value="tema3">
                     Enviromental Mastery (Penguasaan Lingkungan)
                   </option>
-                  <option value="Autonomy">Autonomy (Otonomi)</option>
-                  <option value="Personal-Growth">
+                  <option value="tema4">Autonomy (Otonomi)</option>
+                  <option value="tema5">
                     Personal Growth (Pengembangan Diri)
                   </option>
-                  <option value="Purpose-in-Life">
-                    Purpose in Life (Tujuan Hidup){" "}
-                  </option>
+                  <option value="tema6">Purpose in Life (Tujuan Hidup) </option>
                 </select>
               </div>
 
@@ -192,6 +197,47 @@ export default function MainMenu() {
               onClick={() => setShowGuide(false)}
             >
               ✖ Tutup
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showWelcome && (
+        <div className="popup-overlay">
+          <div
+            className="popup-content"
+            style={{ maxWidth: "700px", textAlign: "left" }}
+          >
+            <h3>🎉 Selamat Datang di Big Cannon!</h3>
+            <p>
+              Permainan simulasi ini dirancang khusus untuk kamu, untuk kamu
+              yang sedang bertumbuh dan berkembang, agar bisa mengenal diri
+              sendiri dengan cara yang seru dan menyenangkan.
+            </p>
+            <p>
+              Dalam permainan ini, kamu akan diajak berpetualang sekaligus
+              belajar tentang <strong>Psychological Well-Being (PWB)</strong>{" "}
+              atau <strong>kesejahteraan psikologis</strong>. Ada enam (6) aspek
+              penting yang akan kamu pelajari, yaitu:
+            </p>
+            <ul style={{ marginLeft: 20 }}>
+              <li>✅ Penerimaan Diri</li>
+              <li>✅ Hubungan Positif dengan Orang Lain</li>
+              <li>✅ Penguasaan Lingkungan</li>
+              <li>✅ Otonomi</li>
+              <li>✅ Pengembangan Diri</li>
+              <li>✅ Tujuan Hidup</li>
+            </ul>
+            <p>
+              Siapkan dirimu untuk memainkan Big Cannon dan jadi versi terbaik
+              dari dirimu sendiri! 💪
+            </p>
+            <button
+              className="popup-button"
+              style={{ marginTop: 25, background: "#ccc", color: "#000" }}
+              onClick={() => setShowWelcome(false)}
+            >
+              🚀 Siap!
             </button>
           </div>
         </div>
