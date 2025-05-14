@@ -5,7 +5,10 @@ import useGameStore from "../core/state/useGameStore";
 import useMusicStore from "../core/state/useMusicStore";
 import "../styles/MainMenu.css";
 
+import qrImage from "../assets/qr-code.png";
+
 export default function MainMenu() {
+  const [showGuide, setShowGuide] = useState(false);
   const startGame = useGameStore((state) => state.startGame);
   const setBallQueue = useGameStore((state) => state.setBallQueue);
   const setRepeatCount = useGameStore((state) => state.setRepeatCount);
@@ -76,6 +79,9 @@ export default function MainMenu() {
           <button className="general" onClick={() => setShowSettings(true)}>
             ⚙️ Pengaturan
           </button>
+          <button className="general" onClick={() => setShowGuide(true)}>
+            📘 Panduan
+          </button>
         </div>
 
         {ballQueue.length > 0 && (
@@ -102,12 +108,23 @@ export default function MainMenu() {
               <div className="section">
                 <label className="label">🎨 Pilih Tema:</label>
                 <select value={selectedTheme} onChange={handleThemeChange}>
-                  <option value="Action">Aksi</option>
-                  <option value="Horor">Horor</option>
-                  <option value="Komedi">Komedi</option>
-                  <option value="Romance">Romantis</option>
-                  <option value="Sci-fi">Sci-Fi</option>
-                  <option value="Survival">Survival</option>
+                  <option value="Self-Acceptance">
+                    Self Acceptance (Penerimaan Diri)
+                  </option>
+                  <option value="Positive-Relation-with-Other">
+                    Positive Relation with Other (Hubungan Positif dengan Orang
+                    Lain)
+                  </option>
+                  <option value="Enviromental-Mastery">
+                    Enviromental Mastery (Penguasaan Lingkungan)
+                  </option>
+                  <option value="Autonomy">Autonomy (Otonomi)</option>
+                  <option value="Personal-Growth">
+                    Personal Growth (Pengembangan Diri)
+                  </option>
+                  <option value="Purpose-in-Life">
+                    Purpose in Life (Tujuan Hidup){" "}
+                  </option>
                 </select>
               </div>
 
@@ -143,6 +160,36 @@ export default function MainMenu() {
               className="popup-button"
               style={{ marginTop: 25, background: "#ccc", color: "#000" }}
               onClick={() => setShowSettings(false)}
+            >
+              ✖ Tutup
+            </button>
+          </div>
+        </div>
+      )}
+      {/* Pop up guide */}
+      {showGuide && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h3>📘 Buku Panduan</h3>
+            <p>Kamu bisa akses panduan di link berikut:</p>
+            <a
+              href="https://uns.id/BUKUPANDUANBIGCANNON"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#4aa8e2", wordBreak: "break-all" }}
+            >
+              https://uns.id/BUKUPANDUANBIGCANNON
+            </a>
+
+            <div style={{ marginTop: 20 }}>
+              {/* <QRCode value="https://uns.id/BUKUPANDUANBIGCANNON" size={150} /> */}
+              <img src={qrImage} alt="QR Code" style={{ width: 500 }} />
+            </div>
+
+            <button
+              className="popup-button"
+              style={{ marginTop: 25, background: "#ccc", color: "#000" }}
+              onClick={() => setShowGuide(false)}
             >
               ✖ Tutup
             </button>

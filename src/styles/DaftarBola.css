@@ -1,4 +1,18 @@
 /* DaftarBola.css */
+:root {
+  --primary-bg: #87ceeb; /* AliceBlue */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --text-color: #1e1e1e;
+  --accent: #71c9f8; /* Sky Blue Pastel */
+  --accent-hover: #1994d6;
+  --danger: #f87171; /* Light Red */
+  --danger-hover: #f43f5e;
+  --input-bg: #ffffff;
+  --popup-bg: rgba(255, 255, 255, 0.95);
+  --popup-border: rgba(0, 0, 0, 0.1);
+  --popup-accent: #10b981; /* Emerald */
+}
 
 body,
 html,
@@ -8,7 +22,7 @@ html,
   width: 100%;
   height: 100%;
   font-family: "Poppins", sans-serif;
-  background-color: #101010;
+  background-color: var(--primary-bg);
   overflow: hidden;
 }
 
@@ -17,7 +31,7 @@ html,
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #1e1e1e, #0a0a0a);
+  background: linear-gradient(135deg, var(--primary-bg), #e0f6ff);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,17 +42,17 @@ html,
 .left-sidebar-container {
   position: absolute;
   top: 20px;
-  background: rgba(30, 30, 30, 0.8);
+  background: var(--input-bg);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 20px;
   width: 250px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  color: #f0f0f0;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  color: var(--text-color);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-container {
@@ -55,7 +69,7 @@ html,
   margin-bottom: 8px;
   text-align: center;
   letter-spacing: 1px;
-  color: #ffd700;
+  color: var(--danger);
 }
 
 .ball-list {
@@ -73,7 +87,7 @@ html,
   border-radius: 10px;
   font-size: 14px;
   transition: background 0.2s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
 }
 
 .ball-item:hover {
@@ -82,8 +96,8 @@ html,
 
 /* Tombol */
 .drop-ball-button {
-  background: #00ffaa;
-  color: #000;
+  background: var(--popup-accent);
+  color: #fff;
   border: none;
   padding: 14px;
   border-radius: 12px;
@@ -91,12 +105,12 @@ html,
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 14px rgba(4, 249, 114, 0.3);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
 }
 
 .drop-ball-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 18px rgba(20, 253, 144, 0.884);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.5);
 }
 
 .drop-ball-button:active {
@@ -104,19 +118,21 @@ html,
 }
 
 .drop-ball-button.disabled {
-  background: #555;
-  color: #ccc;
+  background: #ccc;
+  color: #666;
   cursor: not-allowed;
   transform: none;
 }
+
 button.general {
-  background: #000;
+  background: var(--text-color);
+  color: white;
 }
 
 .sidebar-buttons button {
   background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
@@ -125,7 +141,7 @@ button.general {
 
 .sidebar-buttons button:hover {
   background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: var(--accent);
 }
 
 /* Popup */
@@ -145,26 +161,26 @@ button.general {
 }
 
 .popup-content {
-  background: rgba(30, 30, 30, 0.95);
+  background: var(--popup-bg);
   padding: 30px 40px;
   border-radius: 20px;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  color: var(--text-color);
+  border: 1px solid var(--popup-border);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   text-align: center;
   animation: popIn 0.4s ease-in-out;
 }
 
 .popup-content h3 {
   font-size: 22px;
-  color: #00ffaa;
+  color: var(--accent);
   margin-bottom: 10px;
 }
 
 .popup-button {
   margin-top: 15px;
-  background: #00ffaa;
-  color: #000;
+  background: var(--popup-accent);
+  color: #fff;
   padding: 10px 20px;
   border-radius: 8px;
   border: none;
@@ -174,7 +190,7 @@ button.general {
 }
 
 .popup-button:hover {
-  background: #00dd99;
+  background: #0ea971;
 }
 
 /* Animasi */
@@ -197,95 +213,3 @@ button.general {
     opacity: 1;
   }
 }
-
-.popup-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(10, 10, 10, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 50;
-}
-
-.popup-content {
-  background-color: #1e1e1e;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 2rem;
-  border-radius: 1rem;
-  text-align: center;
-  width: 600px;
-}
-
-.popup-title {
-  color: #fff;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.popup-message {
-  color: #ccc;
-  margin-bottom: 1.5rem;
-}
-
-.popup-button {
-  padding: 0.6rem 1.2rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-.popup-button:hover {
-  background-color: #45a049;
-}
-
-/* .popup-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(10, 10, 10, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 50;
-}
-
-.popup-content {
-  background-color: #1e1e1e;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 2rem;
-  border-radius: 1rem;
-  text-align: center;
-  width: 300px;
-}
-
-.popup-title {
-  color: #fff;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.popup-message {
-  color: #ccc;
-  margin-bottom: 1.5rem;
-}
-
-.popup-button {
-  padding: 0.6rem 1.2rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-.popup-button:hover {
-  background-color: #45a049;
-} */
