@@ -216,9 +216,8 @@ export default function MainMenu() {
             </p>
             <p>
               Dalam permainan ini, kamu akan diajak berpetualang sekaligus
-              belajar tentang <strong>Psychological Well-Being (PWB)</strong>{" "}
-              atau <strong>kesejahteraan psikologis</strong>. Ada enam (6) aspek
-              penting yang akan kamu pelajari, yaitu:
+              belajar tentang <strong>Psychological Well-Being (PWB)</strong> .
+              Ada enam (6) aspek penting yang akan kamu pelajari, yaitu:
             </p>
             <ul style={{ marginLeft: 20 }}>
               <li>✅ Penerimaan Diri</li>
