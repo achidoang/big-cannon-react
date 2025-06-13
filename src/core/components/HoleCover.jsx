@@ -13,7 +13,7 @@ export default function HoleCover({ index, radius, angle, floorRef }) {
   return (
     <>
       <mesh ref={coverRef} visible={isClosed}>
-        <cylinderGeometry args={[0.45, 0.45, 0.35, 32]} />
+        <cylinderGeometry args={[0.55, 0.55, 0.35, 32]} />
         <meshStandardMaterial
           color="blue"
           transparent={!isClosed}

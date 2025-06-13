@@ -77,17 +77,18 @@ export default function MainMenu() {
         />
 
         <div className="button-group">
+          <button className="general" onClick={() => setShowGuide(true)}>
+            📘 Panduan
+          </button>
+          <button className="general" onClick={() => setShowSettings(true)}>
+            ⚙️ Pengaturan
+          </button>
+
           <button className="general" onClick={handleSetBalls}>
             ✔ Buat Bola
           </button>
           <button className="danger" onClick={handleClearBalls}>
             🗑 Hapus Daftar
-          </button>
-          <button className="general" onClick={() => setShowSettings(true)}>
-            ⚙️ Pengaturan
-          </button>
-          <button className="general" onClick={() => setShowGuide(true)}>
-            📘 Panduan
           </button>
         </div>
 

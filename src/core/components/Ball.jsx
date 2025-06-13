@@ -8,7 +8,7 @@ export default function Ball({ id, position }) {
   const [ref] = useSphere(() => ({
     mass: 1.5,
     position,
-    args: [0.2],
+    args: [0.33],
     material: "ballMaterial",
     userData: { type: "ball", id }, // Penting!
   }));
@@ -23,7 +23,7 @@ export default function Ball({ id, position }) {
 
   return (
     <mesh ref={ref} castShadow>
-      <sphereGeometry args={[0.2, 32, 32]} />
+      <sphereGeometry args={[0.35, 32, 32]} />
       <meshStandardMaterial color="red" />
     </mesh>
   );
